@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpotyShop - Louez vos abonnements Spotify Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="spotylogo.svg" alt="Logo SpotyShop">
+                <span>potyShop</span>
+            </div>
+
+            <!-- Menu normal pour grand écran -->
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="service.html">Produits</a></li>
+                <li><a href="#apropos">À propos</a></li>
+                <li><a class="contact-btn" href="https://wa.me/24107425535">Contact</a></li>
+            </ul>
+
+            <!-- Menu burger pour mobile -->
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
+    </header>
+
+    <!-- Sidebar mobile -->
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-btn">&times;</div>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="service.html">Produits</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="https://wa.me/24107425535" class="contact-btn">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Section Accueil -->
+    <section id="accueil" class="hero">
+        <div class="hero-bg"></div> <!-- Image floue -->
+        <div class="hero-content">
+            <h1>Louez un abonnement Spotify Premium</h1>
+            <p>Profitez de la musique sans limites à petit prix</p>
+            <a href="service.html" class="btn">Voir nos offres</a>
+        </div>
+    </section>
+
+    <!-- Section Services -->
+    <section id="services" class="services">
+        <h2>Nos Services</h2>
+        <div class="service-list">
+            <div class="service">
+                <img src="spotylogo.svg" alt="Service 1">
+                <h3>Abonnement Spotify Premium Personnel</h3>
+                <p>Un compte Premium individuel pour écouter votre musique sans interruption, sans publicité et en haute qualité.</p>
+                <p class="prix">Prix : 3 000 FCFA / mois</p>
+                <a href="https://wa.me/24107425535" class="btn-command">Passez la commande</a>
+            </div>
+            <div class="service">
+                <img src="spotylogo.svg" alt="Service 2">
+                <h3>Abonnement Spotify Premium Duo</h3>
+                <p>Deux comptes Premium pour vous et un proche, chacun avec ses playlists et recommandations personnalisées.</p>
+                <p class="prix">Prix : 4 000 FCFA / mois</p>
+                <a href="https://wa.me/24107425535" class="btn-command">Passez la commande</a>
+            </div>
+            <div class="service">
+                <img src="spotylogo.svg" alt="Service 3">
+                <h3>Abonnement Spotify Premium Famille</h3>
+                <p>Jusqu’à 6 comptes Premium pour toute la famille, chacun avec son espace personnel et ses propres playlists.</p>
+                <p class="prix">Prix : 5 000 FCFA / mois</p>
+                <a href="https://wa.me/24107425535" class="btn-command">Passez la commande</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Section Comptes Partagés -->
+    <section  class="shared">
+        <h2>Comptes Partagés</h2>
+        <p>Rejoignez un groupe et profitez d’un compte Premium partagé à moindre coût.</p>
+        <div class="shared-list">
+            <div class="shared-card">Compte Famille - 4 places restantes</div>
+            <div class="shared-card">Compte Duo - 1 place restante</div>
+            <div class="shared-card">Compte Famille - 2 places restantes</div>
+        </div>
+    </section>
+    
+<div id="apropos" class="Cmoncode"> 
+        <section class="apropos">
+        <h2>À propos de SpotyShop</h2>
+        <p>
+            SpotyShop est une plateforme dédiée à la location d'abonnements Spotify Premium.  
+            Nous permettons à nos utilisateurs de profiter d’un accès à la musique en streaming  
+            sans publicité, à petit prix et en toute sécurité grâce au partage de comptes.  
+        </p>
+        <p>
+            Notre mission est de rendre la musique premium accessible à tous, avec un support  
+            client rapide et une gestion sécurisée des comptes partagés.
+        </p>
+        </section>
+</div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-desc">
+        <h3>SpotyShop</h3>
+        <p>Location d'abonnements Spotify Premium à prix réduit.</p>
+      </div>
+      <div class="footer-nav">
+        <h4>Navigation</h4>
+        <a href="#accueil">Accueil</a>
+        <a href="#services">Produits</a>
+        <a href="#apropos">À propos</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Suivez-nous</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 SpotyShop - Tous droits réservés</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" defer>
+  import Chatbot from "https://cdn.n8nchatui.com/v1/embed.js";
+  Chatbot.init({
+    "n8nChatUrl": "https://yobo.app.n8n.cloud/webhook/80b51c2b-fce6-4d62-aac0-42de593efb1f/chat",
+    "metadata": {}, // Include any custom data to send with each message to your n8n workflow
+    "theme": {
+      "button": {
+        "backgroundColor": "#1DB954",
+        "right": 20,
+        "bottom": 20,
+        "size": 50,
+        "iconColor": "#000000",
+        "customIconSrc": "https://upload.wikimedia.org/wikipedia/commons/0/09/Key_%28music%29_icon.svg",
+        "customIconSize": 60,
+        "customIconBorderRadius": 15,
+        "autoWindowOpen": {
+          "autoOpen": false,
+          "openDelay": 2
+        },
+        "borderRadius": "rounded"
+      },
+      "tooltip": {
+        "showTooltip": true,
+        "tooltipMessage": "Message",
+        "tooltipBackgroundColor": "#cfffc2",
+        "tooltipTextColor": "#000000",
+        "tooltipFontSize": 15
+      },
+      "chatWindow": {
+        "borderRadiusStyle": "rounded",
+        "avatarBorderRadius": 50,
+        "messageBorderRadius": 6,
+        "showTitle": true,
+        "title": "Spotyshop IA",
+        "titleAvatarSrc": "https://icons.veryicon.com/png/o/cartoon/bicolor-icon/robot-9.png",
+        "avatarSize": 32,
+        "welcomeMessage": "bonjour je suis l'IA de spotyshop comment puis-je vous aidez ?",
+        "errorMessage": "le service est en maintenance merci",
+        "backgroundColor": "#000000",
+        "height": 600,
+        "width": 400,
+        "fontSize": 16,
+        "starterPrompts": [
+          "mon contact ?",
+          "Mes prix ?"
+        ],
+        "starterPromptFontSize": 15,
+        "renderHTML": false,
+        "clearChatOnReload": false,
+        "showScrollbar": false,
+        "botMessage": {
+          "backgroundColor": "#ecffeb",
+          "textColor": "#000000",
+          "showAvatar": true,
+          "avatarSrc": "https://icons.veryicon.com/png/o/cartoon/bicolor-icon/robot-9.png"
+        },
+        "userMessage": {
+          "backgroundColor": "#1DB954",
+          "textColor": "#050505",
+          "showAvatar": true,
+          "avatarSrc": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIt9pSWLfyT326xneRNhKBU3CHn4zVktQI0w&s"
+        },
+        "textInput": {
+          "placeholder": "Entrez un message",
+          "backgroundColor": "#ecffeb",
+          "textColor": "#1e1e1f",
+          "sendButtonColor": "#1DB954",
+          "maxChars": 50,
+          "maxCharsWarningMessage": "You exceeded the characters limit. Please input less than 50 characters.",
+          "autoFocus": false,
+          "borderRadius": 6,
+          "sendButtonBorderRadius": 26
+        }
+      }
+    }
+    });
+  </script>
+
+</body>
+</html>
