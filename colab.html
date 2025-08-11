@@ -1,41 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotyShop - colab</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <title>Formulaire Affiliation</title>
 </head>
 <body>
-    <h2>Créer un code promo</h2>
-<form id="form-affiliation">
-  <input type="text" name="nom" placeholder="Votre nom" required>
-  <input type="text" name="telephone" placeholder="Téléphone" required>
-  <input type="text" name="codePromo" placeholder="Nom du code promo" required>
-  <button type="submit">Créer</button>
-</form>
+  <h1>Créer un code promo</h1>
+  <form id="formAffiliation">
+    <input type="text" id="nom" placeholder="Votre nom" required />
+    <br />
+    <input type="tel" id="telephone" placeholder="Votre téléphone" required />
+    <br />
+    <input type="text" id="codepromo" placeholder="Nom du code promo" required />
+    <br />
+    <button type="submit">Envoyer</button>
+  </form>
 
-<script>
-const API_URL = "https://script.google.com/macros/s/AKfycbyJxSJq4H5vGIyzNb2E-vFH5FHR45R7OKj_rA3GtJupxEadSuEPzG68GisKdWrKKr35/exec"; // remplace par ton URL
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxbssoGs36ilbBMyfnDKCqlP67-UwrHL-WKZwUcKHxGiS1XQ9ePn419Ka7l0y5zK35b/exec"; // Mets ici l'URL
 
-document.getElementById('form-affiliation').addEventListener('submit', async function(e) {
-  e.preventDefault();
+    document.getElementById("formAffiliation").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-  let data = {
-    nom: this.nom.value,
-    telephone: this.telephone.value,
-    codePromo: this.codePromo.value
-  };
+      const data = {
+        nom: document.getElementById("nom").value,
+        telephone: document.getElementById("telephone").value,
+        codepromo: document.getElementById("codepromo").value,
+      };
 
-  await fetch(API_URL, {
-    method: 'POST',
-    body: JSON.stringify(data)
-  });
-
-  alert("Code promo créé !");
-});
-</script>
-
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+      .then((res) => res.text())
+      .then((text) => {
+        alert(text);
+        this.reset();
+      })
+      .catch((err) => {
+        alert("Erreur lors de l'envoi : " + err.message);
+      });
+    });
+  </script>
 </body>
 </html>
