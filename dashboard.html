@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Voir mes gains</h2>
+<form id="form-dashboard">
+  <input type="text" name="nom" placeholder="Votre nom" required>
+  <input type="text" name="telephone" placeholder="Téléphone" required>
+  <button type="submit">Vérifier</button>
+</form>
+
+<p id="resultat"></p>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyJxSJq4H5vGIyzNb2E-vFH5FHR45R7OKj_rA3GtJupxEadSuEPzG68GisKdWrKKr35/exec"; // même URL
+
+document.getElementById('form-dashboard').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  let nom = this.nom.value;
+  let telephone = this.telephone.value;
+
+  let res = await fetch(`${API_URL}?nom=${encodeURIComponent(nom)}&telephone=${encodeURIComponent(telephone)}`);
+  let data = await res.json();
+
+  document.getElementById('resultat').textContent = `Vous avez généré : ${data.gains}`;
+});
+</script>
+
+</body>
+</html>
