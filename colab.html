@@ -289,38 +289,49 @@
 
     <script src="script.js"></script>
    <script>
+const SCRIPT_URL = 'airtable_create.php';  // Ton fichier PHP qui crée le code promo
+
 document.getElementById('form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const data = {
-        nom: document.getElementById('nom').value,
-        numero: document.getElementById('numero').value,
-        code: document.getElementById('code').value
-    };
+    const nom = document.getElementById('nom').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const code = document.getElementById('code').value.trim();
+
+    if (!nom || !numero || !code) {
+        document.getElementById('error').textContent = "Tous les champs sont obligatoires.";
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('success').style.display = 'none';
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('nom', nom);
+    formData.append('numero', numero);
+    formData.append('code', code);
 
     try {
-        const response = await fetch('ajout_code.php', {
+        const response = await fetch(SCRIPT_URL, {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
+            body: formData
         });
 
         const result = await response.json();
 
-        if (result.success) {
+        if (result.status === "success") {
             document.getElementById('success').style.display = 'block';
             document.getElementById('error').style.display = 'none';
             document.getElementById('form').reset();
         } else {
-            throw new Error(result.error || "Erreur inconnue");
+            document.getElementById('error').textContent = result.message || "Erreur lors de la création";
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('success').style.display = 'none';
         }
-
     } catch (error) {
-        console.error(error);
+        document.getElementById('error').textContent = "Erreur réseau, veuillez réessayer.";
         document.getElementById('error').style.display = 'block';
         document.getElementById('success').style.display = 'none';
     }
 });
-</script>
 
 </html>
