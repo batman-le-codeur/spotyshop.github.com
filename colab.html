@@ -288,50 +288,67 @@
 
 
     <script src="script.js"></script>
-   <script>
-const SCRIPT_URL = 'airtable_create.php';  // Ton fichier PHP qui crée le code promo
+    <script>
+    // Remplace par ta clé API Airtable et ton Base ID & nom de table
+    const AIRTABLE_API_KEY = "patFF0ML0rhmOKEVi.d8c1b0affee20f87592618e998a8fa9d9b703f996981012150ea8b3c3d0fec07";
+    const AIRTABLE_BASE_ID = "appyg2ArHE6WvjC8x";
+    const AIRTABLE_TABLE = "CodesPromo"; // Nom exact de ta table
 
-document.getElementById('form').addEventListener('submit', async function(e) {
-    e.preventDefault();
+    const form = document.getElementById('promoForm');
+    const messageDiv = document.getElementById('message');
 
-    const nom = document.getElementById('nom').value.trim();
-    const numero = document.getElementById('numero').value.trim();
-    const code = document.getElementById('code').value.trim();
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    if (!nom || !numero || !code) {
-        document.getElementById('error').textContent = "Tous les champs sont obligatoires.";
-        document.getElementById('error').style.display = 'block';
-        document.getElementById('success').style.display = 'none';
-        return;
-    }
+        const nom = document.getElementById('nom').value.trim();
+        const numero = document.getElementById('numero').value.trim();
+        const code = document.getElementById('code').value.trim();
 
-    const formData = new FormData();
-    formData.append('nom', nom);
-    formData.append('numero', numero);
-    formData.append('code', code);
-
-    try {
-        const response = await fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: formData
-        });
-
-        const result = await response.json();
-
-        if (result.status === "success") {
-            document.getElementById('success').style.display = 'block';
-            document.getElementById('error').style.display = 'none';
-            document.getElementById('form').reset();
-        } else {
-            document.getElementById('error').textContent = result.message || "Erreur lors de la création";
-            document.getElementById('error').style.display = 'block';
-            document.getElementById('success').style.display = 'none';
+        if (!nom || !numero || !code) {
+            showMessage("Veuillez remplir tous les champs.", "error");
+            return;
         }
-    } catch (error) {
-        document.getElementById('error').textContent = "Erreur réseau, veuillez réessayer.";
-        document.getElementById('error').style.display = 'block';
-        document.getElementById('success').style.display = 'none';
+
+        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`;
+
+        const data = {
+            fields: {
+                nom,
+                numero,
+                code,
+                gains: 0
+            }
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${AIRTABLE_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error.message || "Erreur inconnue");
+            }
+
+            const result = await response.json();
+            showMessage(`Code promo créé avec succès ! (ID: ${result.id})`, "success");
+            form.reset();
+        } catch (err) {
+            showMessage(`Erreur : ${err.message}`, "error");
+        }
+    });
+
+    function showMessage(msg, type) {
+        messageDiv.textContent = msg;
+        messageDiv.className = `message ${type}`;
+        messageDiv.style.display = 'block';
     }
-});
+</script>
+
 
 </html>
