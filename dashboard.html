@@ -275,19 +275,12 @@
             resultDiv.classList.remove('show');
             
             try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'search',
-                        nom: nom,
-                        numero: numero
-                    })
+                // Utiliser JSONP comme alternative à fetch
+                const data = await makeJSONPRequest({
+                    action: 'search',
+                    nom: nom,
+                    numero: numero
                 });
-                
-                const data = await response.json();
                 
                 if (data.success && data.affiliate) {
                     showSuccessResult(data.affiliate);
@@ -295,7 +288,25 @@
                     showResult('error', data.message || 'Aucun affilié trouvé');
                 }
             } catch (error) {
-                showResult('error', 'Erreur de connexion: ' + error.message);
+                // Si JSONP échoue, essayer fetch en mode no-cors
+                try {
+                    const formData = new FormData();
+                    formData.append('data', JSON.stringify({
+                        action: 'search',
+                        nom: nom,
+                        numero: numero
+                    }));
+                    
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData
+                    });
+                    
+                    showResult('success', 'Requête envoyée - Vérifiez vos données dans le Google Sheet');
+                } catch (fetchError) {
+                    showResult('error', 'Erreur de connexion: ' + error.message);
+                }
             } finally {
                 // Réinitialiser le bouton
                 searchBtn.disabled = false;
@@ -303,6 +314,46 @@
                 btnText.textContent = 'Rechercher';
             }
         });
+
+        // Fonction JSONP pour contourner CORS
+        function makeJSONPRequest(params) {
+            return new Promise((resolve, reject) => {
+                const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+                
+                // Créer l'URL avec les paramètres
+                const url = SCRIPT_URL + '?' + 
+                    Object.keys(params).map(key => 
+                        encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+                    ).join('&') + '&callback=' + callbackName;
+                
+                // Créer le callback global
+                window[callbackName] = function(data) {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    resolve(data);
+                };
+                
+                // Créer et injecter le script
+                const script = document.createElement('script');
+                script.src = url;
+                script.onerror = function() {
+                    delete window[callbackName];
+                    document.body.removeChild(script);
+                    reject(new Error('JSONP request failed'));
+                };
+                
+                document.body.appendChild(script);
+                
+                // Timeout après 10 secondes
+                setTimeout(() => {
+                    if (window[callbackName]) {
+                        delete window[callbackName];
+                        document.body.removeChild(script);
+                        reject(new Error('JSONP request timeout'));
+                    }
+                }, 10000);
+            });
+        }
 
         function showSuccessResult(affiliate) {
             resultDiv.className = 'result success';
