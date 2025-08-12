@@ -400,45 +400,49 @@
 
     <script src="script.js"></script>
     <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby7s9pHpVv9h6ecU7shySY1ttu8uLjVfLt2xhZlcX0IjjbuJiURteRJs-hFxyymOIF6/exec';
-
     async function login() {
-        const nom = document.getElementById('nom').value.trim();
-        const numero = document.getElementById('numero').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    const numero = document.getElementById('numero').value.trim();
 
-        if (!nom || !numero) {
-            alert("Veuillez entrer votre nom et votre numéro.");
-            return;
-        }
-
-        try {
-            const response = await fetch(`${SCRIPT_URL}?action=search&nom=${encodeURIComponent(nom)}&numero=${encodeURIComponent(numero)}`);
-            const data = await response.json();
-
-            if (data.success) {
-                // Affiche le tableau de bord
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('dashboard').style.display = 'block';
-
-                // Met à jour les infos
-                document.getElementById('userName').textContent = data.affiliate.nom;
-                document.getElementById('gains').textContent = data.affiliate.gains + ' fcfa';
-                document.getElementById('code').textContent = data.affiliate.code || 'Aucun code promo';
-            } else {
-                alert("Nom ou numéro incorrect.");
-            }
-        } catch (error) {
-            alert("Erreur de connexion au serveur.");
-            console.error(error);
-        }
+    if (!nom || !numero) {
+        alert("Veuillez entrer votre nom et votre numéro.");
+        return;
     }
 
-    function logout() {
-        document.getElementById('login').style.display = 'block';
-        document.getElementById('dashboard').style.display = 'none';
-        document.getElementById('nom').value = '';
-        document.getElementById('numero').value = '';
+    const formData = new FormData();
+    formData.append('nom', nom);
+    formData.append('numero', numero);
+
+    try {
+        const response = await fetch('airtable.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('userName').textContent = data.nom;
+            document.getElementById('gains').textContent = data.gains + ' fcfa';
+            document.getElementById('code').textContent = data.code || 'Aucun code promo';
+        } else {
+            alert(data.message || "Nom ou numéro incorrect.");
+        }
+    } catch (error) {
+        alert("Erreur de connexion au serveur.");
+        console.error(error);
     }
+}
+
+function logout() {
+    document.getElementById('login').style.display = 'block';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('nom').value = '';
+    document.getElementById('numero').value = '';
+}
+
 </script>
 
 </body>
