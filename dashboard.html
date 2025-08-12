@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
     <title>Tableau de Bord</title>
     <style>
         body {
@@ -31,7 +30,6 @@
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 20px;
-            margin: 97px 0 159px 0;
         }
         
         .form-group {
@@ -118,212 +116,6 @@
         }
     </style>
 </head>
-
- <!-- Navbar -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="spotylogo.svg" alt="Logo SpotyShop">
-                <span>potyShop</span>
-            </div>
-
-            <!-- Menu normal pour grand écran -->
-            <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
-            <li><a href="service.html">Produits</a></li>
-            <li><a href="index.html#apropos">À propos</a></li>
-            <li><a href="colab.html">colab</a></li>
-                <li><a class="contact-btn" href="https://wa.me/24107425535">Contact</a></li>
-            </ul>
-
-            <!-- Menu burger pour mobile -->
-            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
-        </nav>
-    </header>
-
-    <!-- Sidebar mobile -->
-    <div class="sidebar" id="sidebar">
-        <div class="close-btn" id="close-btn">&times;</div>
-        <ul>
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="service.html">Produits</a></li>
-            <li><a href="index.html#apropos">À propos</a></li>
-            <li><a href="colab.html">colab</a></li>
-            <li><a href="https://wa.me/24107425535" class="contact-btn">Contact</a></li>
-        </ul>
-    </div>
-
-<style>
-    .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #000;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    width: 30px;
-    margin-right: 1px;
-}
-
-.logo span {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #1DB954;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 25px;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #1DB954;
-}
-
-.contact-btn {
-    padding: 8px 15px;
-    background-color: #1DB954;
-    border-radius: 20px;
-    color: black !important;
-}
-
-.menu-toggle {
-    font-size: 28px;
-    cursor: pointer;
-    display: none;
-}
-
-/* Sidebar plein écran */
-.sidebar {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    transition: right 0.4s ease, opacity 0.4s ease;
-    opacity: 0;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar.active {
-    right: 0;
-    opacity: 1;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-.sidebar ul li {
-    margin: 20px 0;
-}
-
-.sidebar ul a {
-    color: white;
-    font-size: 1.5em;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.sidebar ul a:hover {
-    color: #1DB954;
-}
-
-.sidebar .contact-btn {
-    padding: 10px 20px;
-    background-color: #1DB954;
-    color: black;
-    border-radius: 25px;
-}
-
-/* Bouton fermer */
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 40px;
-    cursor: pointer;
-    color: white;
-}
-
-
-/* Footer */
-.footer {
-  background: #000;
-  padding: 30px 20px;
-}
-
-.footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 30px;
-}
-
-.footer h4, .footer h3 {
-  color: #1db954;
-}
-
-.footer-nav a, .footer-links a {
-  display: block;
-  color: white;
-  margin-top: 5px;
-  text-decoration: none;
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.8em;
-  color: gray;
-}
-
-
-
-/* Responsive */
-@media (max-width: 850px) {
-    .nav-links {
-        display: none;
-    }
-    .menu-toggle {
-        display: block;
-    }
-}
-
-
-
-</style>
-
-
-
 <body>
     <div class="container">
         <h1>Tableau de Bord</h1>
@@ -343,15 +135,7 @@
             <div class="message error" id="error">Affilié non trouvé</div>
             
             <button onclick="login()">Se connecter</button>
-        <p style="text-align: center; margin-top: 25px; color: #b3b3b3;">
-            Créer un code promo
-        </p>
-        <div style="text-align: center; margin-top: 10px;">
-            <a href="colab.html" style="color: #1DB954; text-decoration: underline; font-weight: bold;">S'inscrire</a>
         </div>
-        </div>
-
-
         
         <!-- Dashboard -->
         <div class="dashboard" id="dashboard">
@@ -375,32 +159,8 @@
         </div>
     </div>
 
-<footer class="footer">
-    <div class="footer-content">
-      <div class="footer-desc">
-        <h3>SpotyShop</h3>
-        <p>Location d'abonnements Spotify Premium à prix réduit.</p>
-      </div>
-      <div class="footer-nav">
-        <h4>Navigation</h4>
-        <a href="#accueil">Accueil</a>
-        <a href="#services">Produits</a>
-        <a href="#apropos">À propos</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="footer-links">
-        <h4>Suivez-nous</h4>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">Twitter</a>
-      </div>
-    </div>
-    <p class="footer-bottom">&copy; 2025 SpotyShop - Tous droits réservés</p>
-  </footer>
-
-    <script src="script.js"></script>
     <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxvANbNKIf02EJcn6CqZpjFcNOrD9qP223Qfygd8IWqR-SMixRdzDMr9_ZtVCxAJGqN/exec';
+        const SCRIPT_URL = 'REMPLACER_PAR_VOTRE_URL_GOOGLE_APPS_SCRIPT';
         
         async function login() {
             const nom = document.getElementById('nom').value;
@@ -411,7 +171,9 @@
             try {
                 const response = await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify({
                         action: 'search',
                         nom: nom,
@@ -423,10 +185,12 @@
                 
                 if (data.success) {
                     showDashboard(data.affiliate);
+                    document.getElementById('error').style.display = 'none';
                 } else {
                     document.getElementById('error').style.display = 'block';
                 }
             } catch (error) {
+                console.error('Erreur:', error);
                 document.getElementById('error').style.display = 'block';
             }
         }
