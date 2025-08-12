@@ -1,80 +1,415 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Tableau de bord</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Recherche d'Affilié</title>
 <style>
+  /* Ton CSS existant */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
   }
   .container {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    margin: auto;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  input, button {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
     width: 100%;
-    padding: 10px;
-    margin: 5px 0;
+    max-width: 500px;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
   }
-  button {
-    background: #fb923c;
+  .container:hover {
+    transform: translateY(-5px);
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+  .header p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+  .form-group {
+    margin-bottom: 25px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+  }
+  .form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+  }
+  .search-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
-  button:hover {
-    background: #ec4899;
+  .search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+  .search-btn:active {
+    transform: translateY(0);
+  }
+  .search-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .loading {
+    display: none;
+  }
+  .loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   .result {
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
+  .result.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .result.success {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+  .result.error {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e8e 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+  }
+  .result h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .dashboard-card {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+  }
+  .dashboard-card:hover {
+    transform: translateY(-5px);
+  }
+  .gains-card {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  }
+  .code-card {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  }
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  .card-content h4 {
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  .gains-amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  .promo-code {
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    min-width: 120px;
+  }
+  .promo-code:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+  .copy-icon {
+    margin-left: 5px;
+    opacity: 0.7;
+  }
+  .dashboard-stats {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
     margin-top: 20px;
-    padding: 10px;
-    background: #eee;
-    border-radius: 5px;
+  }
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+  .stat-label {
+    opacity: 0.8;
+  }
+  .stat-value {
+    font-weight: 600;
+  }
+  @media (max-width: 600px) {
+    .container {
+      margin: 20px;
+      padding: 30px 25px;
+    }
+    .header h1 {
+      font-size: 2rem;
+    }
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    .gains-amount {
+      font-size: 2rem;
+    }
+    .promo-code {
+      font-size: 1.2rem;
+      padding: 8px 12px;
+    }
+    .card-icon {
+      font-size: 2rem;
+    }
   }
 </style>
 </head>
 <body>
-
 <div class="container">
-  <h2>Vérifier vos gains</h2>
-  <input type="text" id="nom" placeholder="Votre nom">
-  <input type="text" id="telephone" placeholder="Votre numéro">
-  <button onclick="verifier()">Vérifier</button>
+  <div class="header">
+    <h1>📊 Tableau de Bord Affilié</h1>
+    <p>Entrez votre nom et téléphone pour voir vos gains et code promo</p>
+  </div>
 
-  <div class="result" id="result"></div>
+  <form id="searchForm">
+    <div class="form-group">
+      <label for="nom">Votre Nom</label>
+      <input type="text" id="nom" name="nom" required placeholder="Entrez votre nom..." />
+    </div>
+
+    <div class="form-group">
+      <label for="telephone">Votre Téléphone</label>
+      <input type="tel" id="telephone" name="telephone" required placeholder="Entrez votre téléphone..." />
+    </div>
+
+    <button type="submit" class="search-btn" id="searchBtn">
+      <span class="btn-text">Voir Mon Tableau de Bord</span>
+    </button>
+  </form>
+
+  <div id="result" class="result"></div>
 </div>
 
 <script>
-function verifier() {
-  let nom = document.getElementById("nom").value;
-  let telephone = document.getElementById("telephone").value;
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyutqrKPglDegSmRt2nIGCmOg-d5mSi-HXkyV5PvwkeTb4QxO0kModtkJQZ5dgxXuY/exec';
 
-  fetch(`https://script.google.com/macros/s/AKfycbzuNMqAG5MKBKpX9fuI3UAQz8pjYQgIA2HayzTO_D1n-XV5mITJRZO1M6uBDgVTrW6j/exec?nom=${encodeURIComponent(nom)}&telephone=${encodeURIComponent(telephone)}`)
-    .then(res => res.json())
-    .then(data => {
-      let resultDiv = document.getElementById("result");
-      if (data.error) {
-        resultDiv.innerHTML = `<strong style="color:red">${data.error}</strong>`;
+  const form = document.getElementById('searchForm');
+  const resultDiv = document.getElementById('result');
+  const searchBtn = document.getElementById('searchBtn');
+  const btnText = document.querySelector('.btn-text');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nom = document.getElementById('nom').value.trim();
+    const telephone = document.getElementById('telephone').value.trim();
+
+    if (!nom || !telephone) {
+      showResult('error', 'Veuillez remplir tous les champs');
+      return;
+    }
+
+    searchBtn.disabled = true;
+    searchBtn.classList.add('loading');
+    btnText.textContent = 'Chargement...';
+    resultDiv.classList.remove('show');
+
+    try {
+      const params = new URLSearchParams({
+        action: 'search',
+        nom: nom,
+        numero: telephone,
+      });
+
+      const response = await fetch(SCRIPT_URL + '?' + params.toString(), {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
+
+      const data = await response.json();
+
+      if (data.success && data.affiliate) {
+        showDashboard(data.affiliate);
       } else {
-        resultDiv.innerHTML = `
-          <strong>Nom :</strong> ${data.nom}<br>
-          <strong>Téléphone :</strong> ${data.telephone}<br>
-          <strong>Code promo :</strong> ${data.codepromo}<br>
-          <strong>Montant généré :</strong> ${data.montant} FCFA
-        `;
+        showResult('error', data.message || 'Aucune information trouvée');
       }
-    })
-    .catch(err => {
-      document.getElementById("result").innerHTML = `<strong style="color:red">Erreur : ${err}</strong>`;
-    });
-}
-</script>
+    } catch (error) {
+      showResult('error', 'Erreur de connexion : ' + error.message);
+      console.error('Erreur détaillée:', error);
+    } finally {
+      searchBtn.disabled = false;
+      searchBtn.classList.remove('loading');
+      btnText.textContent = 'Voir Mon Tableau de Bord';
+    }
+  });
 
+  function showDashboard(affiliate) {
+    resultDiv.className = 'result success';
+    resultDiv.innerHTML = `
+      <h3>🎉 Bienvenue ${affiliate.nom} !</h3>
+      <div class="dashboard-grid">
+        <div class="dashboard-card gains-card">
+          <div class="card-icon">💰</div>
+          <div class="card-content">
+            <h4>Vos Gains Totaux</h4>
+            <div class="gains-amount">${affiliate.gains || 0} €</div>
+          </div>
+        </div>
+        <div class="dashboard-card code-card">
+          <div class="card-icon">🎫</div>
+          <div class="card-content">
+            <h4>Votre Code Promo</h4>
+            <div class="promo-code" onclick="copyToClipboard('${affiliate.code}')" title="Cliquer pour copier">
+              ${affiliate.code}
+              <span class="copy-icon">📋</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-stats">
+        <div class="stat-item">
+          <span class="stat-label">Nom :</span>
+          <span class="stat-value">${affiliate.nom}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Téléphone :</span>
+          <span class="stat-value">${affiliate.numero}</span>
+        </div>
+      </div>
+    `;
+
+    setTimeout(() => resultDiv.classList.add('show'), 100);
+  }
+
+  function showResult(type, message) {
+    resultDiv.className = `result ${type}`;
+    const icon = type === 'success' ? '✅' : '❌';
+    resultDiv.innerHTML = `<h3>${icon} ${message}</h3>`;
+    setTimeout(() => resultDiv.classList.add('show'), 100);
+  }
+
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      const codeElement = document.querySelector('.promo-code');
+      const originalText = codeElement.innerHTML;
+      codeElement.innerHTML = `${text} <span class="copy-icon">✅</span>`;
+      setTimeout(() => {
+        codeElement.innerHTML = originalText;
+      }, 2000);
+    }).catch(() => {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    });
+  }
+
+  // Animation container au chargement
+  window.addEventListener('load', () => {
+    const container = document.querySelector('.container');
+    container.style.opacity = '0';
+    container.style.transform = 'translateY(30px)';
+    setTimeout(() => {
+      container.style.transition = 'all 0.6s ease';
+      container.style.opacity = '1';
+      container.style.transform = 'translateY(0)';
+    }, 100);
+  });
+</script>
 </body>
 </html>
