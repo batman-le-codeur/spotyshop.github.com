@@ -1,127 +1,240 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Recherche affilié</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="style.css">
+<link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    background: #f8f9fa;
-  }
+  
+p {
+    text-align: center;
+}
+h2{
+    text-align: center;
+    color: #1DB954;
+    font-size: 36px;
+    margin-top: 20px;}
   form {
-    margin-bottom: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    margin: 10px;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: black;
+  }
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    background: #1DB954;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  button:hover {
+    transition: 0.3s;
+    background: #12833a;
+  }
+  .result {
+    margin-top: 20px;
     background: white;
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+    display: none;
+    color: black;
   }
-  input, button {
-    padding: 8px;
-    margin: 5px 0;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  .error {
+    color: red;
+    margin-top: 20px;
+
   }
-  button {
-    background: #007BFF;
-    color: white;
-    cursor: pointer;
-  }
-  button:hover {
-    background: #0056b3;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  th {
-    background: #007BFF;
-    color: white;
-  }
+
+.formulaire {
+    max-width: 400px;
+    margin: 40px auto 0 auto;
+    background: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 30px 20px;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+.formulaire:hover, .formulaire:focus-within {
+    box-shadow: 0 8px 32px rgba(30,185,84,0.15);
+    transform: translateY(-2px) scale(1.01);
+}
+@media (max-width: 600px) {
+    .formulaire {
+        max-width: 95vw;
+        padding: 18px 5vw;
+        margin: 20px auto 0 auto;
+    }
+    form button {
+        font-size: 15px;
+        padding: 9px;
+    }
+}
 </style>
 </head>
+
+<!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="spotylogo.svg" alt="Logo SpotyShop">
+                <span>potyShop</span>
+            </div>
+
+            <!-- Menu normal pour grand écran -->
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+            <li><a href="service.html">Produits</a></li>
+            <li><a href="index.html#apropos">À propos</a></li>
+            <li><a href="dashboard.html">Activités</a></li>
+                <li><a class="contact-btn" href="https://wa.me/24107425535">Contact</a></li>
+            </ul>
+
+            <!-- Menu burger pour mobile -->
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
+    </header>
+
+    <!-- Sidebar mobile -->
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-btn">&times;</div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="service.html">Produits</a></li>
+            <li><a href="index.html#apropos">À propos</a></li>
+            <li><a href="dashboard.html">Activités</a></li>
+            <li><a href="https://wa.me/24107425535" class="contact-btn">Contact</a></li>
+        </ul>
+    </div>
+
+
 <body>
 
-<h1>Recherche affilié</h1>
+<h1 style="text-align: center; color: #1DB954;">Connexion affilié</h1>
+<p>Veuillez entrer vos informations pour vous connecter.</p>
+<p>pour vous connecter et voir vos gains</p>
+<div class="formulaire">
+    <form id="loginForm">
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" name="nom" required />
+    
+      <label for="numero">Numéro :</label>
+      <input type="text" id="numero" name="numero" required />
+    
+      <button type="submit">Se connecter</button>
+    </form>
+    
+    <div id="result" class="result"></div>
+    <div id="error" class="error"></div>
 
-<form id="searchForm">
-  <label>Nom :</label>
-  <input type="text" id="nom" required>
+</div>
 
-  <label>Numéro :</label>
-  <input type="text" id="numero" required>
+<section class="explication-section"></section>
+    <!-- Animated background shapes -->
+    <div class="explication-bg1"></div>
+    <div class="explication-bg2"></div>
+    <div class="explication-spotify-icon">
+        <i class="fa fa-spotify"></i>
+    </div>
+    <h2 class="explication-title">
+        <i class="fa fa-info-circle"></i>
+        Explication
+    </h2>
+    <p class="explication-text">
+        <span class="explication-lock"></span>
+            <i class="fa fa-lock"></i>
+        </span>
+        Pour accéder à vos <strong>gains</strong> générés avec votre <strong>code promo</strong>, vous devez d'abord vous connecter.<br>
+        Entrez simplement votre nom et numéro pour voir en temps réel combien vous avez gagné grâce à vos partages !<br>
+        <span class="explication-icons"></span>
+            <i class="fa fa-gift"></i> <i class="fa fa-money-bill-wave"></i> <i class="fa fa-chart-line"></i>
+        </span>
+    </p>
+    <!-- FontAwesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @keyframes float1 {
+            0% { transform:translateY(0) scale(1);}
+            100% { transform:translateY(30px) scale(1.08);}
+        }
+        @keyframes float2 {
+            0% { transform:translateY(0) scale(1);}
+            100% { transform:translateY(-25px) scale(1.13);}
+        }
+        @keyframes spin {
+            0% { transform:translate(-50%, -50%) rotate(0deg);}
+            100% { transform:translate(-50%, -50%) rotate(360deg);}
+        }
+        @keyframes fadeInUp {
+            0% { opacity:0; transform:translateY(40px);}
+            100% { opacity:1; transform:translateY(0);}
+        }
+    </style>
+</section>
+</body>
 
-  <button type="submit">Rechercher</button>
-</form>
 
-<table id="resultTable" style="display:none;">
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Téléphone</th>
-      <th>Code promo</th>
-      <th>Gains</th>
-    </tr>
-  </thead>
-  <tbody id="resultBody"></tbody>
-</table>
 
-<p id="message" style="color:red;"></p>
-
+<script src="script.js"></script>
 <script>
-const apiUrl = "https://script.google.com/macros/s/AKfycbydVe8BqKScT2mw3hYMCXUr85DICtzhOXwg6f105YXkiYCZCUvMpWfe1FyGkl3IupC6/exec"; // Remplace par ton URL Apps Script
+  const apiUrl = "https://sheetdb.io/api/v1/8gxttwhrcyvfx";
 
-document.getElementById("searchForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-  const nom = document.getElementById("nom").value.trim();
-  const numero = document.getElementById("numero").value.trim();
-  const messageEl = document.getElementById("message");
-  const resultTable = document.getElementById("resultTable");
-  const resultBody = document.getElementById("resultBody");
+    const nom = document.getElementById('nom').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const resultDiv = document.getElementById('result');
+    const errorDiv = document.getElementById('error');
 
-  messageEl.textContent = "Recherche en cours...";
-  resultTable.style.display = "none";
+    resultDiv.style.display = 'none';
+    resultDiv.innerHTML = '';
+    errorDiv.textContent = '';
 
-  fetch(apiUrl, {
-    method: "POST",
-    body: JSON.stringify({
-      action: "search",
-      nom: nom,
-      numero: numero
-    }),
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      messageEl.textContent = "";
-      resultBody.innerHTML = `
-        <tr>
-          <td>${data.affiliate.nom}</td>
-          <td>${data.affiliate.numero}</td>
-          <td>${data.affiliate.code}</td>
-          <td>${data.affiliate.gains}</td>
-        </tr>
-      `;
-      resultTable.style.display = "table";
-    } else {
-      messageEl.textContent = data.message || "Aucun affilié trouvé";
+    if (!nom || !numero) {
+      errorDiv.textContent = "Veuillez remplir tous les champs.";
+      return;
     }
-  })
-  .catch(err => {
-    console.error(err);
-    messageEl.textContent = "Erreur de connexion au serveur.";
+
+    // Utilisation de /search pour filtrer sur Nom et Numero
+    const queryUrl = `${apiUrl}/search?Nom=${encodeURIComponent(nom)}&Numero=${encodeURIComponent(numero)}`;
+
+    fetch(queryUrl)
+      .then(res => res.json())
+      .then(data => {
+        if (data.length > 0) {
+          const user = data[0];
+          resultDiv.innerHTML = `
+            <p><strong>Code promo :</strong> ${user.code || 'N/A'}</p>
+            <p><strong>Gains :</strong> ${user.Gains || '0'}</p>
+          `;
+          resultDiv.style.display = 'block';
+        } else {
+          errorDiv.textContent = "Nom ou numéro incorrect.";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        errorDiv.textContent = "Erreur lors de la connexion au serveur.";
+      });
   });
-});
 </script>
 
 </body>
