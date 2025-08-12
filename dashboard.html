@@ -181,16 +181,28 @@
                     })
                 });
                 
-                const data = await response.json();
+                console.log('Response status:', response.status);
+                const responseText = await response.text();
+                console.log('Response text:', responseText);
                 
-                if (data.success) {
-                    showDashboard(data.affiliate);
-                    document.getElementById('error').style.display = 'none';
+                // Vérifier si c'est du JSON valide
+                if (responseText.startsWith('{') || responseText.startsWith('[')) {
+                    const data = JSON.parse(responseText);
+                    
+                    if (data.success) {
+                        showDashboard(data.affiliate);
+                        document.getElementById('error').style.display = 'none';
+                    } else {
+                        document.getElementById('error').style.display = 'block';
+                    }
                 } else {
+                    console.error('Réponse non-JSON reçue:', responseText);
+                    document.getElementById('error').textContent = 'Erreur de configuration du script';
                     document.getElementById('error').style.display = 'block';
                 }
             } catch (error) {
-                console.error('Erreur:', error);
+                console.error('Erreur complète:', error);
+                document.getElementById('error').textContent = 'Erreur de connexion';
                 document.getElementById('error').style.display = 'block';
             }
         }
