@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
-    <title>Inscription code promo</title>
+    <title>Inscription Affilié</title>
     <style>
         
         
@@ -288,34 +288,39 @@
 
 
     <script src="script.js"></script>
-    <script>
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuNMqAG5MKBKpX9fuI3UAQz8pjYQgIA2HayzTO_D1n-XV5mITJRZO1M6uBDgVTrW6j/exec';
-        
-        document.getElementById('form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const data = {
-                action: 'create',
-                nom: document.getElementById('nom').value,
-                numero: document.getElementById('numero').value,
-                code: document.getElementById('code').value
-            };
-            
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(data)
-                });
-                
-                document.getElementById('success').style.display = 'block';
-                document.getElementById('error').style.display = 'none';
-                document.getElementById('form').reset();
-                
-            } catch (error) {
-                document.getElementById('error').style.display = 'block';
-                document.getElementById('success').style.display = 'none';
-            }
+   <script>
+document.getElementById('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const data = {
+        nom: document.getElementById('nom').value,
+        numero: document.getElementById('numero').value,
+        code: document.getElementById('code').value
+    };
+
+    try {
+        const response = await fetch('ajout_code.php', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
         });
-    </script>
+
+        const result = await response.json();
+
+        if (result.success) {
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('form').reset();
+        } else {
+            throw new Error(result.error || "Erreur inconnue");
+        }
+
+    } catch (error) {
+        console.error(error);
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('success').style.display = 'none';
+    }
+});
+</script>
 
 </html>
