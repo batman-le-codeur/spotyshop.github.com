@@ -1,87 +1,370 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Menu Spotify Drinks</title>
-  <link rel="stylesheet" href="style2.css" />
-   <link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>produits</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="spotylogo.svg" type="image/x-icon">
 </head>
 <body>
-  <div class="page">
-    <header class="topnav">
-      <ul>
-        <a href="index.html"><li class="active">retourner au menu principale</li></a>
-      </ul>
+
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="spotylogo.svg" alt="Logo SpotyShop">
+                <span>potyShop</span>
+            </div>
+
+            <!-- Menu normal pour grand écran -->
+            <ul class="nav-links">
+                 <li><a href="index.html">Accueil</a></li>
+            <li><a href="service.html">Produits</a></li>
+            <li><a href="index.html#apropos">À propos</a></li>
+            <li><a href="colab.html">colab</a></li>
+            <li><a href="dashboard.html">Activités</a></li>
+            <li><a href="https://wa.me/24107425535" class="contact-btn">Contact</a></li>
+            </ul>
+
+            <!-- Menu burger pour mobile -->
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+        </nav>
     </header>
 
-    <main class="container">
-      <div class="carousel" id="carousel">
-        <button class="arrow left" id="prev" aria-label="Précédent">&#10094;</button>
+    <!-- Sidebar mobile -->
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-btn">&times;</div>
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="service.html">Produits</a></li>
+            <li><a href="index.html#apropos">À propos</a></li>
+            <li><a href="colab.html">colab</a></li>
+            <li><a href="dashboard.html">Activités</a></li>
+            <li><a href="https://wa.me/24107425535" class="contact-btn">Contact</a></li>
+        </ul>
+    </div>
 
-        <div class="viewport">
-          <div class="track" id="track">
-            <!-- Cards: répète / modifie autant que tu veux -->
+<h1 style="text-align: center; margin-top: 40px;">Bienvenue sur la page des produits</h1>
+<h2 style="text-align: center; margin-bottom: 100px;">Ici vous retrouvez nos différents abonnements</h2>
+<h1 style="text-align: center; color: rgb(171, 21, 21);">Abonnements netflix</h1>
+<section class="custom-slider">
+  <div class="slider-container">
+    <button class="slider-btn prev">&#10094;</button>
+    <div class="slider-wrapper">
+      <div class="slider">
+        <div class="card" style="--bg:#ffffff">
+          <img src="data:image/png;base64,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" alt="Berries Salad">
+          <h3>netflix</h3>
+          <p> netflix mobile <br>
+             1 appareil <br>
+             1 mois <br>
+            selement sur mobile</p>
 
-            <article class="card active">
-              <img src="spotylogo.svg" alt="Spotify" class="logo" />
-              <h2>Personnel</h2>
-              <ul class="opts">
-              <li>3000 fcfa/mois</li>
-              <li>1 compte Spotify Premium</li>
-              <li>- Annulez à tout moment</li>
-              </ul>
-              <a href="https://wa.me/24107425535" class="btn white">payer</a>
-            </article>
-
-            <article class="card">
-              <img src="spotylogo.svg" alt="Spotify" class="logo" />
-              <h3>Duo</h3>
-              <ul class="opts">
-              <li>4000 fcfa/mois</li>
-              <li>2 comptes Spotify Premium</li>
-              <li>Annulez à tout moment</li>
-              </ul>
-              <a href="https://wa.me/24107425535" class="btn">payer</a>
-            </article>
-
-            <article class="card">
-              <img src="spotylogo.svg" alt="Spotify" class="logo" />
-              <h3>Famille</h3>
-              <ul class="opts">
-              <li>5000 fcfa/mois</li>
-              <li>6 comptes Premium</li>
-              <li>Contrôlez le contenu marqué comme explicitet</li>
-              <li>Annulez à tout moment</li>
-              </ul>
-              <a href="https://wa.me/24107425535" class="btn">payer</a>
-            </article>
-
-
-           
-          </div>
+          </p>
+          <p class="price">2500fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
         </div>
-
-        <button class="arrow right" id="next" aria-label="Suivant">&#10095;</button>
+        <div class="card" style="--bg:#ffffff">
+          <img src="data:image/png;base64,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" alt="Healthy Salad">
+          <h3>netflix</h3>
+          <p>
+            netflix basique <br>
+            1 appareil <br>
+            1 mois <br>
+            TV, ordinateur, mobile</p>
+          </p>
+          <p class="price">3500fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="data:image/png;base64,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" alt="Berries Salad">
+          <h3>netflix</h3>
+          <p>
+            netflix standard <br>
+            2 appareils <br>
+            1 mois <br>
+            TV, ordinateur, mobile</p>
+          </p>
+          <p class="price">5500fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="data:image/png;base64,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" alt="Healthy Salad">
+          <h3>netflix</h3>
+          <p>
+            netflix premium <br>
+            4 appareils <br>
+            1 mois <br>
+            TV, ordinateur, mobile</p>
+          </p>
+          <p class="price">7500fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
       </div>
-    </main>
+    </div>
+    <button class="slider-btn next">&#10095;</button>
   </div>
+</section>
 
-  <section class="explication-paiement">
-    <h2>Comment payer&nbsp;?</h2>
-    <ol>
-      <li>Choisissez l’offre qui vous convient et cliquez sur le bouton <strong>payer</strong>.</li>
-      <li>Vous serez redirigé vers WhatsApp pour discuter avec notre équipe.</li>
-      <li>Envoyez une capture d’écran du paiement effectué par airtel money via WhatsApp.</li>
-      <li>Suivez les instructions envoyées par notre équipe pour finaliser votre commande.</li>
-      <li>En cas de problème, contactez notre support via la page de contact.</li>
-    </ol>
-  </section>
+<h1 style="text-align: center; color: seagreen;">Abonnements spotify</h1>
+<section class="custom-slider">
+  <div class="slider-container">
+    <button class="slider-btn prev">&#10094;</button>
+    <div class="slider-wrapper">
+      <div class="slider">
+        <div class="card" style="--bg:#ffffff">
+          <img src="spotylogo.svg" alt="Berries Salad">
+          <h3>Spotify</h3>
+          <p>
+            Spotify mobile <br>
+            1 appareil <br>
+            1 mois <br></p>
+          </p>
+          <P>Tv, ordinateur, mobile</P>
+          <p class="price">3000fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+         <div class="card" style="--bg:#ffffff">
+          <img src="spotylogo.svg" alt="Berries Salad">
+          <h3>Spotify</h3>
+          <p>
+            Spotify<br>
+            1 appareil <br>
+            2 mois <br></p>
+          </p>
+          <p>TV, ordinateur, mobile</p>
+          <p class="price">5000fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="spotylogo.svg" alt="Healthy Salad">
+          <h3>Spotify</h3>
+          <p>
+            spotify duo family<br>
+            2 appareils <br>
+            1 mois <br></p>
+          <p>TV, ordinateur, mobile</p>
+          <p class="price">4000fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="spotylogo.svg" alt="Berries Salad">
+          <h3>Spotify</h3>
+          <p>
+            spotify family<br>
+            6 appareils <br>
+            1 mois <br></p>
+            <p>TV, ordinateur, mobile</p>
+          <p class="price">5000fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+      </div>
+    </div>
+    <button class="slider-btn next">&#10095;</button>
+  </div>
+</section>
 
-  <footer class="footer" style="color:#fff; text-align:center; padding:20px 0; margin-top:100px; font-size:1rem;">
-    <p style="margin:0;">&copy; 2025 SpotyShop. Tous droits réservés.</p>
-  </footer>
+<h1 style="text-align: center; color: rgb(223, 90, 2);">Abonnements crunchyroll</h1>
+<section class="custom-slider">
+  <div class="slider-container">
+    <button class="slider-btn prev">&#10094;</button>
+    <div class="slider-wrapper">
+      <div class="slider">
+        <div class="card" style="--bg:#ffffff">
+          <img src="https://m.media-amazon.com/images/I/41o03HyOYlL.png" alt="Berries Salad">
+          <h3>Crunchyroll</h3>
+          <p>
+            Crunchyroll mega fan<br>
+            1 profil <br>
+            1 mois <br></p>
+          <p>TV, ordinateur, mobile</p>
+          <p class="price">3000fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="https://m.media-amazon.com/images/I/41o03HyOYlL.png" alt="Healthy Salad">
+          <h3>Crunchyroll</h3>
+          <p>
+            Crunchyroll mega fan<br>
+            2 profil <br>
+            1 mois <br></p>
+          <p>TV, ordinateur, mobile</p>
+          <p class="price">5000fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="https://m.media-amazon.com/images/I/41o03HyOYlL.png" alt="Berries Salad">
+          <h3>Crunchyroll</h3>
+            <p>
+                Crunchyroll fan<br>
+                1 profil <br>
+                1 mois <br></p>
+                <p>TV, ordinateur, mobile</p>
+          <p class="price">6500fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+        <div class="card" style="--bg:#ffffff">
+          <img src="https://m.media-amazon.com/images/I/41o03HyOYlL.png" alt="Healthy Salad">
+          <h3>Crunchyroll</h3>
+          <p>
+              Crunchyroll mega fan<br>
+              4 appareils en simultané<br>
+              1 mois <br></p>
+              <p>TV, ordinateur, mobile</p>
+          <p class="price">7500fcfa</p>
+          <a href="https://wa.me/24107425535" class="order-btn">Commander</a>
+        </div>
+      </div>
+    </div>
+    <button class="slider-btn next">&#10095;</button>
+  </div>
+</section>
 
-  <script src="script1.js"></script>
+
+<style>
+/* SECTION AUTONOME */
+.custom-slider {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 20px 0;
+  box-sizing: border-box;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-slider * {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.slider-wrapper {
+  overflow: hidden;
+  flex: 1;
+}
+
+.slider {
+  display: flex;
+  gap: 15px;
+  transition: transform 0.4s ease;
+}
+
+.card {
+  flex: 0 0 250px;
+  background: var(--bg);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.card img {
+  width: 100%;
+  height: 60%;
+  border-radius: 20px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.order-btn {
+  margin-top: 10px;
+  background: #1DB954;
+  color: black;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
+
+.slider-btn {
+  background: white;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 200px;
+  }
+}
+</style>
+
+<script>
+document.querySelectorAll('.custom-slider').forEach(section => {
+  const slider = section.querySelector('.slider');
+  const nextBtn = section.querySelector('.next');
+  const prevBtn = section.querySelector('.prev');
+  let currentIndex = 0;
+
+  const cardWidth = slider.children[0].offsetWidth + 15; // largeur + gap
+
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < slider.children.length - 1) {
+      currentIndex++;
+      slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    }
+  });
+
+  // Optionnel : ajuste la largeur au resize
+  window.addEventListener('resize', () => {
+    slider.style.transform = `translateX(-${currentIndex * (slider.children[0].offsetWidth + 15)}px)`;
+  });
+});
+</script>
+
+
+
+
+
+    <!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+      <div class="footer-desc">
+        <h3>SpotyShop</h3>
+        <p>Location d'abonnements Spotify Premium à prix réduit.</p>
+      </div>
+      <div class="footer-nav">
+        <h4>Navigation</h4>
+        <a href="#accueil">Accueil</a>
+        <a href="#services">Produits</a>
+        <a href="#apropos">À propos</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-links">
+        <h4>Suivez-nous</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+      </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 SpotyShop - Tous droits réservés</p>
+</footer>
+
+<script src="script.js"></script>
+
 </body>
 </html>
