@@ -40,6 +40,7 @@
         display: block;
         text-align: center;
         background-color: #222;
+        color: #fff;
    
     }
 
@@ -74,7 +75,7 @@
 <div style="text-align:center; margin-bottom: 100px;">
     <h3 style="color:#1DB954; transition: color 0.3s; font-family:'Inter', Arial, sans-serif;">Cette page vous permet de voir combien vous avez gagné <br> grâce au code promo que vous avez créé.</h3>
     <p style="color:#222; background:linear-gradient(90deg,#1DB954 30%,#ffc362 100%); border-radius:8px; padding:10px; max-width:400px; margin:auto; transition: background 0.3s; font-family:'Inter', Arial, sans-serif;">
-        Entrez votre nom et numéro pour consulter vos gains. L'interface est centrée, fluide et s'adapte à tous les écrans.
+        Entrez votre nom et votre numéro sans le 0 au debut que vous avez utiliser pour créer votre code promo pour consulter vos gains.
     </p>
 </div>
 
@@ -82,7 +83,8 @@
 <div class="container">
     <h2>Connexion</h2>
     <input type="text" id="nom" placeholder="Nom">
-    <input type="text" id="numero" placeholder="Numéro">
+    <input type="tel" id="numero" placeholder="Numéro: sans le 0 au debut" pattern="[0-9]*" inputmode="numeric" maxlength="15" autocomplete="off"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '');">
     <button onclick="login()">Se connecter</button>
     <div class="result" id="result"></div>
 </div>
@@ -90,7 +92,11 @@
         <span style="color:#ffffff;">Pas de compte ? </span> <br><br>
         <a href="colab.html" style="color:#1DB954; font-weight:bold; text-decoration:none;">S'inscrire</a>
     </div>
-
+    <div style="text-align:center; margin-top:30px;"></div>
+        <button onclick="window.location.href='index.html'" style="background:#222; color:#1DB954; border:none; border-radius:5px; padding:10px 20px; font-weight:bold; cursor:pointer;">
+            Retour au menu
+        </button>
+    </div>
 <script>
 async function login() {
     const nom = document.getElementById("nom").value.trim();
